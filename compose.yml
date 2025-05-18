@@ -47,7 +47,7 @@ services:
     container_name: "frontend"
     environment:
       - VITE_API_URL=${VITE_API_URL}
-      - DEBUG =${DEBUG}
+      - DEBUG=${DEBUG}
     volumes:
       - type: bind
         source: ./services/frontend
