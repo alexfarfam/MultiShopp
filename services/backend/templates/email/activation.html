@@ -1,0 +1,104 @@
+{% load i18n %}
+
+{% block subject %}
+{% blocktrans %}Activacion de cuenta en {{ site_name }}{% endblocktrans %}
+{% endblock subject %}
+
+{% block html_body %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a {{company_name}}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content h2 {
+            color: #333333;
+        }
+        .content p {
+            color: #555555;
+        }
+        .button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 15px;
+            text-align: center;
+            background-color: #4CAF50;
+            color: white!important;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .footer {
+            background-color: #f4f4f4;
+            color: #555555;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+        .footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>¡Bienvenido a {{company_name}}!</h1>
+        </div>
+        <div class="content">
+            <h2>Hola {{ user.username }},</h2>
+            <p>¡Gracias por unirte a <strong>{{company_name}}</strong>!
+                Estamos encantados de tenerte como parte de nuestra comunidad. Aquí en {{company_name}}, nos esforzamos por ofrecerte la mejor experiencia de compra en línea, con una amplia variedad de productos de alta calidad y un servicio al cliente excepcional.</p>
+            <h3>¿Qué puedes esperar?</h3>
+            <ul>
+                <li><strong>Productos de calidad:</strong> Encuentra una amplia gama de productos cuidadosamente seleccionados para satisfacer tus necesidades.</li>
+                <li><strong>Ofertas exclusivas:</strong> Recibe ofertas y descuentos especiales solo para miembros.</li>
+                <li><strong>Compras seguras:</strong> Tu seguridad es nuestra prioridad. Contamos con métodos de pago seguros y protegidos.</li>
+                <li><strong>Atención personalizada:</strong> Nuestro equipo de atención al cliente está siempre listo para ayudarte.</li>
+            </ul>
+            <p>Empieza a explorar ahora:</p>
+            <a href="{{url|safe}}" class="button">Confirma tu cuenta!</a>
+            <p>No te pierdas nuestras últimas novedades y promociones. Síguenos en nuestras redes sociales:</p>
+            <p>
+                <a href="{{url_facebook|safe}}">Facebook</a> | 
+                <a href="{{url_instagram|safe}}">Instagram</a> | 
+                <a href="{{url_twitter|safe}}">Twitter</a>
+            </p>
+            <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos a <a href="mailto:{{customer_service_email}}">{{customer_service_email}}</a> o llamarnos al {{customer_service_telephone}}.</p>
+        </div>
+        <div class="footer">
+            <p>&copy; {{current_year}} {{company_name}}. Todos los derechos reservados.</p>
+            <p>Made with ❤ by <a href="{{developer_url|safe}}">{{developer}}</a></p>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock html_body %}

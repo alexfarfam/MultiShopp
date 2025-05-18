@@ -1,0 +1,93 @@
+{% load i18n %}
+
+{% block subject %}
+{% blocktrans %}Restablecer Contraseña{% endblocktrans %}
+{% endblock subject %}
+
+{% block html_body %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a {{company_name}}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content h2 {
+            color: #333333;
+        }
+        .content p {
+            color: #555555;
+        }
+        .button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 15px;
+            text-align: center;
+            background-color: #4CAF50;
+            color: white!important;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .footer {
+            background-color: #f4f4f4;
+            color: #555555;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+        }
+        .footer a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Cambio de Contraseña</h1>
+        </div>
+        <div class="content">
+            <h2>Hola {{ user.username }},</h2>
+            <p>Has solicitado restablecer tu contraseña. Por favor, haz clic en el siguiente enlace para crear una nueva contraseña:</p>
+            <a href="{{url|safe}}" class="button">Resetear!</a>
+
+            <p>Si no solicitaste este cambio, puedes ignorar este correo electrónico.</p>
+            <p>Gracias,<br>El equipo de tu {{company_name}}</p>
+
+            <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos a <a href="mailto:{{customer_service_email}}">{{customer_service_email}}</a> o llamarnos al {{customer_service_telephone}}.</p>
+        </div>
+        <div class="footer">
+            <p>&copy; {{current_year}} {{company_name}}. Todos los derechos reservados.</p>
+            <p>Made with ❤ by <a href="{{developer_url|safe}}">{{developer}}</a></p>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock html_body %}

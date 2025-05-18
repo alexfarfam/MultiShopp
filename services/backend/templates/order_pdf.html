@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constancia de Compra</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .header img{
+            max-width: 100px;
+            margin-bottom: 10px;
+        }
+        .header h1 {
+            margin: 0;
+            color: #4CAF50;
+        }
+        .details {
+            margin-bottom: 20px;
+        }
+        .details h2 {
+            color: #4CAF50;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .details p {
+            margin: 15px 0px;
+        }
+        .details strong {
+            color: #333;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            color: #666;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="data:image/jpeg;base64,{{logo}}" alt="Logo">
+            <h1>Constancia de Compra</h1>
+            <p>¡Gracias por su compra!</p>
+        </div>
+        <div class="details">
+            <h2>Detalles del Pedido</h2>
+            <p><strong>Nº Orden:</strong> {{ order.order_number }}</p>
+            <p><strong>Proveedor:</strong> {{ provider_info.user.username }}</p>
+            <p><strong>Nombre Cliente:</strong> {{ order.fullname }}</p>
+            <p><strong>Email:</strong> {{ order.email }}</p>
+            <p><strong>Teléfono:</strong> {{ order.telephone }}</p>
+            <p><strong>Dirección:</strong> {{ order.address }}</p>
+            <p><strong>Referencia:</strong> {{ order.reference }}</p>
+            <p><strong>Total:</strong> ${{ order.total }}</p>
+            <p><strong>Fecha de Registro:</strong> {{ order.creation_date }}</p>
+        </div>
+        <div class="footer">
+            <p>Si tiene alguna pregunta, no dude en contactarnos.</p>
+            <p><strong>Correo:</strong> {{provider_info.email}}</p>
+            <p><strong>Teléfono:</strong> {{provider_info.telephone}}</p>
+            <p><strong>Dirección:</strong> {{provider_info.address}}</p>
+        </div>
+    </div>
+</body>
+</html>

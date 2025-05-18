@@ -1,0 +1,96 @@
+services:
+  backend:
+    build: 
+      context: ./services/backend
+      dockerfile: Dockerfile
+    container_name: "backend"
+    
+    expose:
+      - 5000
+    environment:
+      - DEBUG=${DEBUG}
+      - SECRET_KEY=${SECRET_KEY}
+      - HOSTS=${HOSTS}
+      - CORS_HOSTS=${CORS_HOSTS}
+      - ACCESS_TOKEN_LIFETIME=${ACCESS_TOKEN_LIFETIME}
+      - REFRESH_TOKEN_LIFETIME=${REFRESH_TOKEN_LIFETIME}
+      - CLIENT_URL=${CLIENT_URL}
+
+      - EMAIL_HOST=${EMAIL_HOST}
+      - EMAIL_HOST_USER=${EMAIL_HOST_USER}
+      - EMAIL_HOST_PASSWORD=${EMAIL_HOST_PASSWORD}
+      - EMAIL_PORT=${EMAIL_PORT}
+
+      - DB_NAME=${DB_NAME}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - type: bind
+        source: ./services/backend
+        target: /usr/src/app/
+      - type: volume
+        source: static_volume
+        target: /home/app/backend/staticfiles
+      - type: volume
+        source: media_volume
+        target: /home/app/backend/mediafiles
+    command: sh -c "python manage.py collectstatic --noinput && gunicorn api.wsgi:application --workers=2 --threads=4 --worker-class=gthread --bind :5000 --worker-tmp-dir /dev/shm"
+    networks:
+      - multishopp_database-network
+
+  frontend:
+    build:
+      context: ./services/frontend
+      dockerfile: Dockerfile
+    container_name: "frontend"
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
+      - DEBUG =${DEBUG}
+    volumes:
+      - type: bind
+        source: ./services/frontend
+        target: /usr/src/app
+      
+      - type: volume
+        source: frontend_volume
+        target: /home/app/frontend
+
+  nginx:
+    build: 
+      context: ./services/nginx
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: "nginx"
+    volumes:
+      - type: volume
+        source: static_volume
+        target: /home/app/backend/staticfiles
+      - type: volume
+        source: media_volume
+        target: /home/app/backend/mediafiles
+      - type: volume
+        source: frontend_volume
+        target: /home/app/frontend
+    ports:
+      - 80:80/tcp
+      - 443:443/tcp
+      
+    networks:
+      - multishopp_database-network
+    depends_on:
+      - backend
+      - frontend
+      
+volumes:
+  frontend_volume:
+    driver: local
+  static_volume:
+    driver: local
+  media_volume:
+    driver: local
+
+networks:
+  multishopp_database-network:
+    external: true
